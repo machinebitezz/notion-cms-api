@@ -57,7 +57,10 @@ router.get('/posts', async function (req, res, next) { // listar todos os posts
     }]
   }).then((data) => {
     const page = parseInt(req.query.page)
-    const paginated = data.results.slice((page - 1) * 5, page * 5) // paginação
+    const pagesize = parseInt(req.query.pagesize)
+    const paginated = data.results.slice((page - 1) * pagesize, page * pagesize) // paginação
+
+    console.log((page - 1) * pagesize, page * pagesize)
 
     if (paginated.length === 0) { // caso de busca vazia
       res.send({
